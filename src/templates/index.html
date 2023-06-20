@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <h2 class="text-center text-primary mt-5 mb-5">Agregar pacientes</h2>
+    <!-- Formulario   -->
+
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-body">
+                <form action="/agregar_paciente" method="POST">
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <div class="col">
+                                <label for="">Nombre</label>
+                                <input type="text" class="form-control mb-3" name="nombre">
+                            </div>
+
+                            <div class="col">
+                                <label for="">Apellido</label>
+                                <input type="text" class="form-control mb-3" name="apellido">
+                            </div>
+
+                            <div class="col">
+                                <label for="">DNI</label>
+                                <input type="text" class="form-control mb-3" name="nro_dni">
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="col">
+                                <label for="">Fecha de nacimiento</label>
+                                <input type="text" class="form-control mb-3" name="fecha_nacimiento">
+                            </div>
+
+                            <div class="col">
+                                <label for="">Dosis</label>
+                                <input type="number" class="form-control mb-3" name="dosis">
+                            </div>
+
+                            <div class="col">
+                                <label for="">Fecha de aplicación</label>
+                                <input type="text" class="form-control mb-3" name="fecha_aplicacion">
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="col">
+                                <label for="">Centro de Salud</label>
+                                <input type="text" class="form-control mb-3" name="centro_salud">
+                            </div>
+
+                            <div class="col">
+                                <label for="">Vacuna</label>
+                                <input type="text" class="form-control mb-3" name="nombre_vacuna">
+                            </div>
+
+                            <div class="col">
+                                <label for="">Lote</label>
+                                <input type="number" class="form-control mb-3" name="lote_vacuna">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3 mt-4" id="submitButton">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <h1 class="text-center mt-5 nb-5 text-primary">Listado de Pacientes</h1>
+
+    <!-- Tabla de pacientes -->
+
+    <table class="table table-bodered">
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">DNI</th>
+            <th scope="col">F.Nacimiento</th>
+            <th scope="col">Dosis</th>
+            <th scope="col">F.Aplicación</th>
+            <th scope="col">Centro de Salud</th>
+            <th scope="col">Vacuna</th>
+            <th scope="col">Lote</th>
+        </thead>
+        <tbody>
+            {%for paciente in data%}
+            <tr>
+                <td>{{paciente.id_paciente}}</td>
+                <td>{{paciente.nombre}}</td>
+                <td>{{paciente.apellido}}</td>
+                <td>{{paciente.nro_dni}}</td>
+                <td>{{paciente.fecha_nacimiento}}</td>
+                <td>{{paciente.dosis}}</td>
+                <td>{{paciente.fecha_aplicacion}}</td>
+                <td>{{paciente.centro_salud}}</td>
+                <td>{{paciente.nombre_vacuna}}</td>
+                <td>{{paciente.lote_vacuna}}</td>
+                <td><button class="btn btn-primary btn-sm" id="btn-edit{{paciente.id_paciente}}" data-bs-toggle="modal"
+                        data-bs-target="#modal{{paciente.id_paciente}}">Editar</button></td>
+                <td><a href="{{url_for('borrar_paciente',id= paciente.id_paciente)}}"
+                        class="btn btn-danger btn-sm">Borrar</a></td>
+            </tr>
+
+            <!--Modal-->
+
+            <div class="modal fade" id="modal{{paciente.id_paciente}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">{{paciente.nombre}}
+                                {{paciente.apellido}}
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/editar_paciente/{{paciente.id_paciente}}" method="POST">
+                                <div class="row">
+                                    <label for="">Nombre</label>
+                                    <input type="text" class="form-control mb-3" name="nombre"
+                                        value={{paciente.nombre}}>
+
+                                    <label for="">Apellido</label>
+                                    <input type="text" class="form-control mb-3" name="apellido"
+                                        value={{paciente.apellido}}>
+
+                                    <label for="">DNI</label>
+                                    <input type="text" class="form-control mb-3" name="nro_dni"
+                                        value={{paciente.nro_dni}}>
+
+                                    <label for="">Fecha de nacimiento</label>
+                                    <input type="text" class="form-control mb-3" name="fecha_nacimiento"
+                                        value={{paciente.fecha_nacimiento}}>
+
+                                    <label for="">Dosis</label>
+                                    <input type="number" class="form-control mb-3" name="dosis"
+                                        value={{paciente.dosis}}>
+
+                                    <label for="">Centro de Salud</label>
+                                    <input type="text" class="form-control mb-3" name="centro_salud"
+                                        value={{paciente.centro_salud}}>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
