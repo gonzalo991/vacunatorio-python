@@ -26,6 +26,11 @@
                             </div>
 
                             <div class="col">
+                                <label for="">Segundo Nombre</label>
+                                <input type="text" class="form-control mb-3" name="segundo_nombre">
+                            </div>
+
+                            <div class="col">
                                 <label for="">Apellido</label>
                                 <input type="text" class="form-control mb-3" name="apellido">
                             </div>
@@ -56,7 +61,7 @@
                         <div class="col-4">
                             <div class="col">
                                 <label for="">Centro de Salud</label>
-                                <input type="text" class="form-control mb-3" name="centro_salud">
+                                <input type="number" class="form-control mb-3" name="centro_salud">
                             </div>
 
                             <div class="col">
@@ -97,7 +102,7 @@
             {%for paciente in data%}
             <tr>
                 <td>{{paciente.id_paciente}}</td>
-                <td>{{paciente.nombre}}</td>
+                <td>{{paciente.nombre}} {{paciente.segundo_nombre}}</td>
                 <td>{{paciente.apellido}}</td>
                 <td>{{paciente.nro_dni}}</td>
                 <td>{{paciente.fecha_nacimiento}}</td>
@@ -131,6 +136,10 @@
                                     <input type="text" class="form-control mb-3" name="nombre"
                                         value={{paciente.nombre}}>
 
+                                    <label for="">Nombre</label>
+                                    <input type="text" class="form-control mb-3" name="segundo_nombre"
+                                        value={{paciente.segundo_nombre}}>
+
                                     <label for="">Apellido</label>
                                     <input type="text" class="form-control mb-3" name="apellido"
                                         value={{paciente.apellido}}>
@@ -148,7 +157,7 @@
                                         value={{paciente.dosis}}>
 
                                     <label for="">Centro de Salud</label>
-                                    <input type="text" class="form-control mb-3" name="centro_salud"
+                                    <input type="number" class="form-control mb-3" name="centro_salud"
                                         value={{paciente.centro_salud}}>
                                 </div>
                         </div>
